@@ -1,0 +1,70 @@
+Assignment
+
+Answer 1:
+
+  React Lists
+  Lists are used to display data in an ordered format and mainly used to display menus on websites. In React, Lists can be created in a similar way as we create lists   in JavaScript. Let us see how we transform Lists in regular JavaScript.
+  The map() function is used for traversing the lists. In the below example, the map() function takes an array of numbers and multiply their values with 5. We assign     the new array returned by map() to the variable multiply Nums and log it.
+  The above JavaScript code will log the output on the console. The output of the code is given below.
+  [5, 10, 15, 20, 25]
+  
+  
+Answer 3:
+
+  import React, { useState, useEffect, memo } from 'react';
+  import PropTypes from 'prop-types';
+  
+  // Single List Item
+  const WrappedSingleListItem = ({
+    index,
+    isSelected,
+    onClickHandler,
+    text,
+  ) => {
+    return (
+      <li
+        style={{ backgroundColor: isSelected ? 'green'}}
+        onClick={onClickHandler(index)}
+        {text}
+    );
+  };
+
+  WrappedSingleListItem.propTypes = {
+    index: PropTypes.number,
+    isSelected: PropTypes.bool,
+    text: PropTypes.string.isRequired,
+  };
+
+  const SingleListItem = memo(WrappedSingleListItem);
+
+  // List Component
+  const WrappedListComponent = ({
+    items,
+  ) => {
+    const [setSelectedIndex, selectedIndex] = useState();
+
+    useEffect(() => {
+      setSelectedIndex(null);
+    }, [items]);
+
+    const handleClick = index => {
+      setSelectedIndex(index);
+    };
+
+    return (
+      <ul style={{ textAlign: 'left' }}>
+        {items.map((item, index) => (
+          <SingleListItem
+            onClickHandler={() => handleClick(index)}
+            text={item.text}
+            index={index}
+            isSelected={selectedIndex}
+          />
+        )}
+    )
+  }
+
+  WrappedListComponent.propTypes = {
+    items: PropTypes.array(PropTypes.shapeOf()};
+   
+---
